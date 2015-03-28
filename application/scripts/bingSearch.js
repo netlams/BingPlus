@@ -2,4 +2,18 @@
 function searchBing() {
 	var searchBar = document.getElementById("searchBar");
 	var searchQuery = searchBar.value;
+	var searchRoute = "https://api.datamarket.azure.com/Bing/Search/v1/Web?Query=%27";
+	searchRoute += searchQuery;
+	searchRoute += "%27";
+
+	var sender = new XMLHttpRequest();
+	sender.onreadystatechange = function() {
+		if(sender.readyState == 4 && sender.status = 200) {
+			//we're good, the search worked
+			var searchResults = JSON.parse(sender.responseText);
+			console.log(searchResults);
+		} 
+	}
+	sender.open("GET", searchRoute, "true");
+	sender.send();
 }
