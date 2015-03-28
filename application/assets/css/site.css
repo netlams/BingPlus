@@ -36,3 +36,15 @@ html body {
 	color: #ababab;
 	text-align: center;
 }
+
+#searchContainer {
+	overflow: hidden;
+}
+
+#searchBar {
+	float: left;
+}
+
+#searchButton {
+	float: left;
+}
