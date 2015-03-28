@@ -5,8 +5,8 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Roboto Condensed', sans-serif;
-	background-image: url(/background.jpg);
-	/*background: blue;*/
+	/*background-image: url("background.jpg");*/
+	background: #efefef;
 	/*background-repeat: repeat;*/
     /*background-size: cover;*/
 }
@@ -57,14 +57,14 @@ body {
 	font-size: 14px;
 	padding: 15px;
 	width: 500px;
-	height: 20%;
 }
 
 #searchButton {
 	/*float: left;*/
 	display: inline-block;
-	padding: 10px;
-	letter-spacing: 1px;
+	margin-left: 0px;
+	padding: 17px;
+	letter-spacing: 2px;
 	background: -webkit-linear-gradient(#f26819, blue); /* For Safari 5.1 to 6.0 */
   	background: -o-linear-gradient(red, blue); /* For Opera 11.1 to 12.0 */
   	background: -moz-linear-gradient(red, blue); /* For Firefox 3.6 to 15 */
