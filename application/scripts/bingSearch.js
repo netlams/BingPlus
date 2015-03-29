@@ -23,5 +23,5 @@ function searchBing() {
 }
 
 function displayResults(results) {
-	
+	alert("This works");
 }
