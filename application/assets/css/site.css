@@ -114,3 +114,48 @@ body {
 #siteListContainer {
 	
 }
+
+/* Results Page */
+
+.linkwrapper {
+	background: #fff;
+	width:720px;
+	margin: 80px auto 0 auto;
+	padding:40px;
+}
+
+.linkwrapper a {
+	color: #0aa4d6;
+	text-decoration: none;
+}
+
+h1.linktitle {
+	font-size: 16px;
+}
+
+h1.linktitle a{
+	color: #f4811f;
+	text-decoration: none;
+}
+
+h3.linkurl{
+	font-size: 14px;
+}
+
+p.linkdesc {
+	font-size: 14px;
+	line-height: 22px;
+	margin-bottom: 30px;
+}
+
+.left-results{
+	float: left;
+	width: 600px;
+}
+
+.right-results{
+	float: right;
+	border-left: 1px solid #d8d8d8;
+	padding-left: 20px;
+	margin-top: 30px;
+}
