@@ -1,6 +1,8 @@
 function searchBing() {
 	var searchBar = document.getElementById("searchBar");
 	var searchQuery = searchBar.value;
+	alert("Alert from Vuk! Does this work?");
+	displayResults("This works");
 	if(searchQuery == "") {
 		return;
 	}
@@ -14,7 +16,8 @@ function searchBing() {
 			//we're good, the search worked
 			var searchResults = JSON.parse(sender.responseText);
 			console.log(searchResults);
-			displayResults("This works");
+
+			
 		} 
 	}
 	sender.open("GET", searchRoute, "true");
@@ -23,5 +26,5 @@ function searchBing() {
 }
 
 function displayResults(results) {
-	
+	//Modify UI (logo fades out) and search bar moves to top
 }
