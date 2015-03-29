@@ -26,17 +26,25 @@ function searchBing() {
 	sender.send();
 }
 
+function generateAddLike(url) {
+	return function() {
+		console.log('addLike was called with url ' + url);
+		addLike(url);
+	};
+}
+
 function grabRatings(siteList, callback) {
 	var ratingsRoute = "http://bingplus.cloudapp.net/info";
 	var dataGrabber = new XMLHttpRequest();
 	var urlList = [];
-	//console.log("siteList: " + siteList);
+	
 	for(var k = 0; k < siteList.length; k++) {
-		urlList[k] = siteList[k].Url;
+		urlList[k] = siteList[k].DisplayUrl;
 	}
-	//console.log("urlList: " + urlList);
+	
 	dataGrabber.onreadystatechange = function() {
 		if(dataGrabber.readyState == 4 && dataGrabber.status == 200) {
+			console.log(dataGrabber.responseText);
 			callback(JSON.parse(dataGrabber.responseText));
 		}
 	};
@@ -65,6 +73,8 @@ function displayResults(results, resultData) {
 		var dURL = siteList[i].DisplayUrl;
 		var desc = siteList[i].Description;
 
+		console.log("display url " + i + ": " + dURL);
+
 		var itemWrapper = document.createElement("div");
 		itemWrapper.className = "linkwrapper";
 		siteListContainer.appendChild(itemWrapper);
@@ -74,7 +84,6 @@ function displayResults(results, resultData) {
 		var titleText = document.createTextNode(title);
 		titleDisplay.appendChild(titleText);
 		itemWrapper.appendChild(titleDisplay);
-
 
 		var urlLink = document.createElement("a");
 		urlLink.href = "http://" + dURL;
@@ -106,9 +115,7 @@ function displayResults(results, resultData) {
 		}
 		likeButton.className = "likeButton";
 		likeButton.appendChild(likeButtonIcon);
-		likeButton.onclick = function() {
-			addLike(dURL);
-		}
+		likeButton.onclick = generateAddLike(dURL);
 		var commentButton = document.createElement("div");
 		var commentButtonIcon = document.createElement("img");
 		//temporary file
