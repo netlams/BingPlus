@@ -1,7 +1,28 @@
+function resultformat() {
+	$(document).ready(function(){
+		var checkStatus = $('#quote').css( "display" );
+		if (checkStatus == 'none') {
+			// $("#quote").css('display', 'inherit');
+			// $("#miniLogoContainer").css('display', 'none');
+			// $("#logoContainer").toggle('400');
+			; // do nothing for now
+		}
+		else {
+			$("#logoContainer").toggle('400');
+			$("#quote").css('display', 'none');
+			$("#miniLogoContainer").css('display', 'inline-block');
+			$("#logoContainer").css('float', 'left');
+			// $("#searchContainer").css('min-width', '200px'); // tried make for mobile ver
+			$("#searchBar").animate({width: '65%'}, 400);
+		}
+	});
+}
+
 function searchBing() {
 	var searchBar = document.getElementById("searchBar");
 	var searchQuery = searchBar.value;
 	if(searchQuery == "") {
+		alert("Hey you forgot to type a search term!");
 		return;
 	}
 	var searchRoute = "https://user:zYdO5g8rm3yqbGpS4pJXCUTU++qEPBcnm9BfXXeP5DQ@api.datamarket.azure.com/Bing/Search/v1/Web?Query=%27";
@@ -24,6 +45,7 @@ function searchBing() {
 	}
 	sender.open("GET", searchRoute, "true");
 	sender.send();
+	resultformat();
 }
 
 function grabRatings(siteList, callback) {
