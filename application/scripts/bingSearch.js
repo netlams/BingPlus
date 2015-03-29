@@ -13,28 +13,35 @@ function searchBing() {
 		if(sender.readyState == 4 && sender.status == 200) {
 			//we're good, the search worked
 			var searchResults = JSON.parse(sender.responseText);
-			//console.log(searchResults);
+			
 			var siteList = searchResults.d.results;
+
 			grabRatings(siteList, function(listData) {
+				//console.log(listData);
 				displayResults(siteList, listData);	
 			});
 		} 
 	}
 	sender.open("GET", searchRoute, "true");
 	sender.send();
-
 }
 
 function grabRatings(siteList, callback) {
-	var ratingsRoute = "";
+	var ratingsRoute = "http://bingplus.cloudapp.net/info";
 	var dataGrabber = new XMLHttpRequest();
-	dataGrabber.onreadystatechange(function() {
-		if(dataGrabber.readyState == 4 && dataGrabber.status = 200) {
+	var urlList = [];
+	//console.log("siteList: " + siteList);
+	for(var k = 0; k < siteList.length; k++) {
+		urlList[k] = siteList[k].Url;
+	}
+	//console.log("urlList: " + urlList);
+	dataGrabber.onreadystatechange = function() {
+		if(dataGrabber.readyState == 4 && dataGrabber.status == 200) {
 			callback(JSON.parse(dataGrabber.responseText));
 		}
-	});
-	dataGrabber.open("GET", ratingsRoute, "true");
-	dataGrabber.send();
+	};
+	dataGrabber.open("POST", ratingsRoute, "true");
+	dataGrabber.send(JSON.stringify({"urlList": urlList}));
 }
 
 function displayResults(results, resultData) {
@@ -88,10 +95,14 @@ function displayResults(results, resultData) {
 
 		var likeButton = document.createElement("div");
 		var likeButtonIcon = document.createElement("img");
-		if(resultData.likes[i] <= 5) {
-			likeButtonIcon.src = "../assets/icons/tiny_heart_h_" + resultData.likes[i] + ".png";
+		if(resultData.exists) {
+			if(resultData.likes[i] <= 5) {
+				likeButtonIcon.src = "../assets/icons/tiny_heart_h_" + resultData.likes[i] + ".png";
+			} else {
+				likeButtonIcon.src = "../assets/icons/tiny_heart_h_5.png";
+			}
 		} else {
-			likeButtonIcon.src = "../assets/icons/tiny_heart_h_5.png";
+			likeButtonIcon.src = "../assets/icons/tiny_heart_h_1.png";
 		}
 		likeButton.className = "likeButton";
 		likeButton.appendChild(likeButtonIcon);
@@ -101,7 +112,7 @@ function displayResults(results, resultData) {
 		var commentButton = document.createElement("div");
 		var commentButtonIcon = document.createElement("img");
 		//temporary file
-		commentButtonIcon.src = "../assets/icons/tiny_heart_h_5.png";
+		commentButtonIcon.src = "../assets/icons/tiny_heart_h_1.png";
 		commentButton.className = "commentButton";
 		commentButton.appendChild(commentButtonIcon);
 		commentButton.onclick = function() {
