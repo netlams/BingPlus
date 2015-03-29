@@ -11,18 +11,21 @@
 		<!-- JS -->
 		<script type="text/javascript" src="../scripts/quote.js"></script>
 		<script type="text/javascript" src="../scripts/bingSearch.js"></script>
+
+		<!-- favicon -->
+		<link rel="shortcut icon" href="../assets/icons/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
 		<!-- Basic search page -->
 		<div id="mainContainer">
 			<div id="top">
 				<div id="logoContainer">
-					<img id="logo" alt="Bing++" src="../assets/icons/logo.png" />
+					<img id="logo" alt="Bing++" src="../assets/images/logo-shadow.png" />
 				</div>
 
 				<div id="searchContainer">
-					<input id="searchBar" type="text"></input>
-					<div id="searchButton" onclick="searchBing();"></div>
+					<input id="searchBar" type="text" placeholder="Enter search ..."></input>
+					<span id="searchButton" onclick="javascript:searchBing();">Submit</span>
 				</div>
 			</div>
 
