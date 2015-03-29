@@ -13,7 +13,8 @@ function searchBing() {
 		if(sender.readyState == 4 && sender.status == 200) {
 			//we're good, the search worked
 			var searchResults = JSON.parse(sender.responseText);
-			console.log(searchResults);
+			//console.log(searchResults);
+
 
 			displayResults(searchResults);
 		} 
@@ -67,8 +68,14 @@ function displayResults(results) {
 
 		var likeButton = document.createElement("div");
 		likeButton.className = "likeButton";
+		likeButton.onclick = function() {
+			addLike(dURL);
+		}
 		var commentButton = document.createElement("div");
 		commentButton.className = "commentButton";
+		commentButton.onclick = function() {
+			commentWindow(dURL);
+		}
 
 		itemWrapper.appendChild(likeButton);
 		itemWrapper.appendChild(commentButton);
