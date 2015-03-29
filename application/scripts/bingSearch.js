@@ -14,9 +14,10 @@ function searchBing() {
 			//we're good, the search worked
 			var searchResults = JSON.parse(sender.responseText);
 			//console.log(searchResults);
-
-
-			displayResults(searchResults);
+			var siteList = searchResults.d.results;
+			grabRatings(siteList, function(listData) {
+				displayResults(siteList, listData);	
+			});
 		} 
 	}
 	sender.open("GET", searchRoute, "true");
@@ -24,9 +25,28 @@ function searchBing() {
 
 }
 
-function displayResults(results) {
+function grabRatings(siteList, callback) {
+	var ratingsRoute = "";
+	var dataGrabber = new XMLHttpRequest();
+	dataGrabber.onreadystatechange(function() {
+		if(dataGrabber.readyState == 4 && dataGrabber.status = 200) {
+			callback(JSON.parse(dataGrabber.responseText));
+		}
+	});
+	dataGrabber.open("GET", ratingsRoute, "true");
+	dataGrabber.send();
+}
+
+function displayResults(results, resultData) {
 	//Modify UI (logo fades out) and search bar moves to top
-	var siteList = results.d.results;
+
+	var siteList = results;
+	if(resultData.exists) {
+		newLists = orderList(results, resultData);
+		siteList = newLists[0];
+		resultData = newLists[1];
+	}
+
 	var siteListContainer = document.createElement("div");
 	siteListContainer.id = "siteListContainer";
 
@@ -67,17 +87,46 @@ function displayResults(results) {
 		itemWrapper.appendChild(descDisplay);
 
 		var likeButton = document.createElement("div");
+		var likeButtonIcon = document.createElement("img");
+		if(resultData.likes[i] <= 5) {
+			likeButtonIcon.src = "../assets/icons/tiny_heart_h_" + resultData.likes[i] + ".png";
+		} else {
+			likeButtonIcon.src = "../assets/icons/tiny_heart_h_5.png";
+		}
 		likeButton.className = "likeButton";
+		likeButton.appendChild(likeButtonIcon);
 		likeButton.onclick = function() {
 			addLike(dURL);
 		}
 		var commentButton = document.createElement("div");
+		var commentButtonIcon = document.createElement("img");
+		//temporary file
+		commentButtonIcon.src = "../assets/icons/tiny_heart_h_5.png";
 		commentButton.className = "commentButton";
+		commentButton.appendChild(commentButtonIcon);
 		commentButton.onclick = function() {
-			commentWindow(dURL);
+			commentWindow(dURL, resultData.comments[i]);
 		}
 
 		itemWrapper.appendChild(likeButton);
 		itemWrapper.appendChild(commentButton);
 	}
+}
+
+function orderList(theList, theData) {
+	var max = 0; var idx = 0;
+	var newList = []; var newData = [];
+	for(var i = 0; i < theList.length; i++) {
+		for(var j = i; j < theList.length; j++) {
+			if(theData.likes[j] >= max) {
+				max = theData.likes[j];
+				idx = j;
+			}
+		}
+		max = 0;
+		newList[i] = theList[idx];
+		newData.likes[i] = theData.likes[idx];
+		newData.comments[i] = theData.comments[idx];
+	}
+	return [newList, newData];
 }
