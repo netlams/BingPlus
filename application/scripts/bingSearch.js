@@ -13,7 +13,7 @@ function resultformat() {
 			$("#miniLogoContainer").css('display', 'inline-block');
 			$("#logoContainer").css('float', 'left');
 			// $("#searchContainer").css('min-width', '200px'); // tried make for mobile ver
-			$("#searchBar").animate({width: '65%'}, 400);
+			$("#searchBar").animate({width: '35%'}, 400);
 		}
 	});
 }
