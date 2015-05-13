@@ -13,4 +13,4 @@ An extension to Microsoft's Bing search engine - solving the problem of 'informa
 
 For more information: http://www.scientificamerican.com/article/tough-choices-how-making/
 
-Contributors: Vuk Petrovic
+Contributors: Vuk Petrovic, Parth Patel, and Dau Lam
